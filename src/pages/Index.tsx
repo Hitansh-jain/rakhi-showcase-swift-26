@@ -469,7 +469,7 @@ const Index = () => {
               
               <div className="mt-8 pt-6 border-t border-gray-700">
                 <p className="text-gray-400 text-sm">
-                  Made with ❤️ for celebrating the sacred bond of Raksha Bandhan
+                  Made with ❤️ for celebrating the sacred bond of Raksha Bandhan.
                 </p>
               </div>
             </div>
