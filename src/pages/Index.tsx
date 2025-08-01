@@ -132,11 +132,11 @@ const Index = () => {
             <p className="text-muted-foreground mb-6">Call us to place your order</p>
             
             <a 
-              href="tel:+919876543210"
+              href="tel:+919887198488"
               className="inline-flex items-center justify-center w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 mb-4"
             >
               <Phone className="w-5 h-5 mr-3" />
-              +91-9876543210
+              +91-9887198488
             </a>
             
             <Button 
@@ -162,7 +162,7 @@ const Index = () => {
             <p className="text-sm text-muted-foreground mb-6">Call us to complete your order</p>
             
             <a 
-              href="tel:+919876543210"
+              href="tel:+919887198488"
               className="inline-flex items-center justify-center w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 mb-4"
             >
               <Phone className="w-5 h-5 mr-3" />
