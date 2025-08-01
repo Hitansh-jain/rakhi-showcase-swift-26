@@ -75,7 +75,7 @@ export const useProducts = () => {
   }, []);
 
   const filterProducts = (filters: FilterOptions): Product[] => {
-    return products.filter(product => {
+    const filtered = products.filter(product => {
       // Category filter
       if (filters.category !== 'All' && product.category !== filters.category) {
         return false;
@@ -97,6 +97,46 @@ export const useProducts = () => {
 
       return true;
     });
+
+    // Priority products to show at the top
+    const priorityProducts = [
+      'Real Kundan Rakhi',
+      'Full Diamond Rakhi', 
+      'Silver Rakhi',
+      'Full Kundan Rakhi',
+      'Pan Rakhi',
+      'Rakhi with Kum Kum'
+    ];
+
+    // Separate priority and regular products
+    const priority: Product[] = [];
+    const regular: Product[] = [];
+
+    filtered.forEach(product => {
+      const isPriority = priorityProducts.some(name => 
+        product.name.toLowerCase().includes(name.toLowerCase())
+      );
+      
+      if (isPriority) {
+        priority.push(product);
+      } else {
+        regular.push(product);
+      }
+    });
+
+    // Sort priority products by the order defined in priorityProducts array
+    priority.sort((a, b) => {
+      const aIndex = priorityProducts.findIndex(name => 
+        a.name.toLowerCase().includes(name.toLowerCase())
+      );
+      const bIndex = priorityProducts.findIndex(name => 
+        b.name.toLowerCase().includes(name.toLowerCase())
+      );
+      return aIndex - bIndex;
+    });
+
+    // Return priority products first, then regular products
+    return [...priority, ...regular];
   };
 
   return {
