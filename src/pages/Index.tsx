@@ -125,8 +125,7 @@ Please confirm my order. Thank you.
   return url;
 };
 
-  return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-};
+  
 
   const handleCheckoutContact = () => {
     if (cart.length === 0) {
