@@ -100,7 +100,7 @@ const generateWhatsAppURL = () => {
       ? item.product.image_url.replace('https://', 'https://\u200B')  // adds zero-width space
       : '';
 
-    return `🧿 *${name}*
+    return `➮ *${name}*
 Qty: ${item.quantity}
 Price: ₹${(item.product.displayPrice * item.quantity).toFixed(0)}
 ${imageUrl ? `🖼️ Image: ${imageUrl}` : ''}`;
