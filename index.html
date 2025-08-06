@@ -1,30 +1,66 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta -->
     <title>HRC - Harsh Rakhi Center | Premium Rakhis Online</title>
     <meta name="description" content="Shop beautiful designer rakhis, kids rakhis, and combo packs at HRC - Harsh Rakhi Center. Fast delivery across India." />
+    <meta name="keywords" content="Rakhi, Buy Rakhi Online, Designer Rakhi, Kids Rakhi, Rakhi Combo, Raksha Bandhan Gifts, Harsh Rakhi Center, HRC" />
     <meta name="author" content="Harsh Rakhi Center" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/og-image.png" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#f7f0e8" />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Hind:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
+    <!-- Open Graph / Facebook -->
     <meta property="og:title" content="HRC - Harsh Rakhi Center" />
     <meta property="og:description" content="Premium Rakhi Collection - Designer Rakhis, Kids Rakhis, Combo Packs" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://rakhi-showcase-swift-26.vercel.app/" />
+    <meta property="og:image" content="/og-image.png" />
 
+    <!-- Twitter Meta -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@harsh_rakhi_center" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:title" content="HRC - Harsh Rakhi Center" />
+    <meta name="twitter:description" content="Shop premium rakhis for brothers, kids, and combos with fast delivery." />
+    <meta name="twitter:site" content="@harshrakhicenter" />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <!-- Structured Data (SEO Rich Results) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Harsh Rakhi Center",
+        "url": "https://rakhi-showcase-swift-26.vercel.app",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://rakhi-showcase-swift-26.vercel.app/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
   </head>
 
-  <body>
+  <body style="margin: 0; font-family: 'Poppins', 'Hind', sans-serif;">
     <div id="root"></div>
+
+    <!-- Vite + React Entry -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
