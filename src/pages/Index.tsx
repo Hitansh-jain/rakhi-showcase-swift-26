@@ -108,6 +108,8 @@ ${imageUrl ? `Image Link: ${imageUrl}` : ''}`;
 
   const { subtotal, discount, total } = getTotalPrice();
 
+  
+
   const message = `HRC Rakhi Order Confirmation
 
 Items Ordered:
@@ -123,22 +125,20 @@ Please confirm my order. Thank you.
   // Encode the message for URL use
   const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   return url;
+}; // ✅ only one closing brace
+
+const handleCheckoutContact = () => {
+  if (cart.length === 0) {
+    toast.error('Your cart is empty!');
+    return;
+  }
+
+  setShowCart(false);
+
+  // Generate WhatsApp URL and open it
+  const whatsappURL = generateWhatsAppURL();
+  window.open(whatsappURL, '_blank');
 };
-
-  
-
-  const handleCheckoutContact = () => {
-    if (cart.length === 0) {
-      toast.error('Your cart is empty!');
-      return;
-    }
-    
-    setShowCart(false);
-    
-    // Generate WhatsApp URL and open it
-    const whatsappURL = generateWhatsAppURL();
-    window.open(whatsappURL, '_blank');
-  };
 
   if (loading) {
     return (
@@ -146,7 +146,7 @@ Please confirm my order. Thank you.
         <div className="text-center animate-fade-in">
           <div className="relative mb-8">
             <div className="w-16 h-16 border-4 border-muted border-t-primary rounded-full animate-spin mx-auto"></div>
-            <Heart className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-primary animate-pulse" />
+            <Heart className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-primary animate-pul e" />
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-4">HRC - Harsh Rakhi Center</h2>
           <p className="text-muted-foreground">Loading Beautiful Rakhis...</p>
