@@ -226,8 +226,8 @@ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount (5%): -₹${disc
       {/* Cart Popup */}
       {showCart && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-card rounded-3xl shadow-2xl max-w-md w-full max-h-[85vh] sm:max-h-[80vh] overflow-hidden border animate-scale-in">
-            <div className="p-6 border-b bg-muted/30">
+          <div className="bg-card rounded-3xl shadow-2xl max-w-md w-full max-h-[85vh] sm:max-h-[80vh] border animate-scale-in flex flex-col">
+            <div className="p-6 border-b bg-muted/30 flex-shrink-0">
               <div className="flex justify-between items-center">
                 <h3 className="text-xl font-bold text-card-foreground">Shopping Cart</h3>
                 <Button 
@@ -240,15 +240,19 @@ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount (5%): -₹${disc
                 </Button>
               </div>
             </div>
-            <div className="p-6 overflow-y-auto flex-1 min-h-0">
-              {cart.length === 0 ? (
-                <div className="text-center py-8">
+            
+            {cart.length === 0 ? (
+              <div className="text-center py-8 flex-1 flex items-center justify-center">
+                <div>
                   <ShoppingCart className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                   <p className="text-muted-foreground font-medium">Your cart is empty</p>
                   <p className="text-sm text-muted-foreground mt-1">Add some beautiful rakhis!</p>
                 </div>
-              ) : (
-                <>
+              </div>
+            ) : (
+              <>
+                {/* Scrollable Products Section */}
+                <div className="p-6 overflow-y-auto flex-1 min-h-0">
                   {cart.map(item => (
                     <div key={`${item.id}-${item.quantityType}`} className="flex items-center py-3 border-b last:border-0 gap-3">
                       <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex-shrink-0">
@@ -285,7 +289,11 @@ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount (5%): -₹${disc
                       <p className="font-bold text-card-foreground text-sm">₹{(item.product.displayPrice * item.quantity).toFixed(2)}</p>
                     </div>
                   ))}
-                  <div className="mt-6 space-y-3 pt-4 border-t">
+                </div>
+                
+                {/* Fixed Bottom Section */}
+                <div className="p-6 border-t bg-muted/30 flex-shrink-0">
+                  <div className="space-y-3">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Subtotal:</span>
                       <span className="font-semibold">₹{getTotalPrice().subtotal.toFixed(2)}</span>
@@ -310,11 +318,26 @@ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount (5%): -₹${disc
                       WhatsApp Order
                     </Button>
                   </div>
-                </>
-              )}
-            </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
+      )}
+
+      {/* Floating Checkout Button */}
+      {cart.length > 0 && (
+        <Button
+          onClick={() => setShowCart(true)}
+          className="fixed bottom-6 right-6 z-40 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white shadow-2xl rounded-full w-16 h-16 flex items-center justify-center animate-pulse-glow"
+        >
+          <div className="relative">
+            <ShoppingCart className="w-6 h-6" />
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+              {cart.reduce((total, item) => total + item.quantity, 0)}
+            </span>
+          </div>
+        </Button>
       )}
 
       <div className="container mx-auto px-4 py-8">
