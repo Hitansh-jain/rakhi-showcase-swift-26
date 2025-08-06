@@ -87,32 +87,41 @@ const Index = () => {
   const handleContact = () => {
     setShowContactPopup(true);
   };
+const generateWhatsAppURL = () => {
+  const phoneNumber = '919887198488';
 
-  const generateWhatsAppURL = () => {
-    const phoneNumber = '919887198488'; // Your WhatsApp number
-    
-    // Format cart items for WhatsApp message with images
-    const cartDetails = cart.map((item, index) => {
-      const displayName = item.quantityType === 'dozen' ? `${item.product.name} (Dozen)` : item.product.name;
-      const imageUrl = item.product.image_url || '';
-      return `${index + 1}. ${displayName}\n   Qty: ${item.quantity} | Price: ₹${(item.product.displayPrice * item.quantity).toFixed(0)}${imageUrl ? `\n   Image: ${imageUrl}` : ''}`;
-    }).join('\n\n');
+  const cartDetails = cart.map((item, index) => {
+    const name = item.quantityType === 'dozen'
+      ? `${item.product.name} (Dozen)`
+      : item.product.name;
 
-    const { subtotal, discount, total } = getTotalPrice();
-    
-    const message = `🛒 *My Rakhi Order from HRC*
+    // Hide preview for image link
+    const imageUrl = item.product.image_url
+      ? item.product.image_url.replace('https://', 'https://\u200B')  // adds zero-width space
+      : '';
 
-🎁 *Order Details:*
+    return `🧿 *${name}*
+Qty: ${item.quantity}
+Price: ₹${(item.product.displayPrice * item.quantity).toFixed(0)}
+${imageUrl ? `🖼️ Image: ${imageUrl}` : ''}`;
+  }).join('\n\n');
+
+  const { subtotal, discount, total } = getTotalPrice();
+
+  const message = `🎁 *HRC Rakhi Order*
+
+🧵 *Items Ordered:*
 ${cartDetails}
 
 💰 *Order Summary:*
-Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount (5%): -₹${discount.toFixed(0)}` : ''}
-*Total Amount: ₹${total.toFixed(0)}*
+Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount: -₹${discount.toFixed(0)}` : ''}
+*Total: ₹${total.toFixed(0)}*
 
-🙏 Please confirm my order. Thank you!`;
+🙏 Kindly confirm my order. Thank you!
+– *Customer via HRC Website*`;
 
-    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-  };
+  return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+};
 
   const handleCheckoutContact = () => {
     if (cart.length === 0) {
