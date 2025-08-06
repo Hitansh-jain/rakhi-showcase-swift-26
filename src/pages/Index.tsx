@@ -100,25 +100,30 @@ const generateWhatsAppURL = () => {
       ? item.product.image_url.replace('https://', 'https://\u200B')  // adds zero-width space
       : '';
 
-    return `➮ *${name}*
-Qty: ${item.quantity}
+    return `→ ${name}
+Quantity: ${item.quantity}
 Price: ₹${(item.product.displayPrice * item.quantity).toFixed(0)}
-${imageUrl ? `🖼️ Image: ${imageUrl}` : ''}`;
+${imageUrl ? `Image Link: ${imageUrl}` : ''}`;
   }).join('\n\n');
 
   const { subtotal, discount, total } = getTotalPrice();
 
-  const message = `🎁 *HRC Rakhi Order*
+  const message = `HRC Rakhi Order Confirmation
 
-🧵 *Items Ordered:*
+Items Ordered:
 ${cartDetails}
 
-💰 *Order Summary:*
-Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount: -₹${discount.toFixed(0)}` : ''}
-*Total: ₹${total.toFixed(0)}*
+Order Summary:
+↪ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\n↪ Discount: -₹${discount.toFixed(0)}` : ''}
+→ Total Payable: ₹${total.toFixed(0)}
 
-🙏 Kindly confirm my order. Thank you!
-– *Customer via HRC Website*`;
+Please confirm my order. Thank you.
+– Customer via HRC Website`;
+
+  // Encode the message for URL use
+  const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  return url;
+};
 
   return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 };
