@@ -91,10 +91,11 @@ const Index = () => {
   const generateWhatsAppURL = () => {
     const phoneNumber = '919887198488'; // Your WhatsApp number
     
-    // Format cart items for WhatsApp message
+    // Format cart items for WhatsApp message with images
     const cartDetails = cart.map((item, index) => {
       const displayName = item.quantityType === 'dozen' ? `${item.product.name} (Dozen)` : item.product.name;
-      return `${index + 1}. ${displayName}\n   Qty: ${item.quantity} | Price: ₹${(item.product.displayPrice * item.quantity).toFixed(0)}`;
+      const imageUrl = item.product.image_url || '';
+      return `${index + 1}. ${displayName}\n   Qty: ${item.quantity} | Price: ₹${(item.product.displayPrice * item.quantity).toFixed(0)}${imageUrl ? `\n   Image: ${imageUrl}` : ''}`;
     }).join('\n\n');
 
     const { subtotal, discount, total } = getTotalPrice();
@@ -225,7 +226,7 @@ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount (5%): -₹${disc
       {/* Cart Popup */}
       {showCart && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-card rounded-3xl shadow-2xl max-w-md w-full max-h-96 overflow-hidden border animate-scale-in">
+          <div className="bg-card rounded-3xl shadow-2xl max-w-md w-full max-h-[85vh] sm:max-h-[80vh] overflow-hidden border animate-scale-in">
             <div className="p-6 border-b bg-muted/30">
               <div className="flex justify-between items-center">
                 <h3 className="text-xl font-bold text-card-foreground">Shopping Cart</h3>
@@ -239,7 +240,7 @@ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount (5%): -₹${disc
                 </Button>
               </div>
             </div>
-            <div className="p-6 overflow-y-auto max-h-64">
+            <div className="p-6 overflow-y-auto flex-1 min-h-0">
               {cart.length === 0 ? (
                 <div className="text-center py-8">
                   <ShoppingCart className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -249,9 +250,16 @@ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount (5%): -₹${disc
               ) : (
                 <>
                   {cart.map(item => (
-                    <div key={`${item.id}-${item.quantityType}`} className="flex justify-between items-center py-3 border-b last:border-0">
-                      <div className="flex-1">
-                        <p className="font-semibold text-card-foreground text-sm">
+                    <div key={`${item.id}-${item.quantityType}`} className="flex items-center py-3 border-b last:border-0 gap-3">
+                      <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex-shrink-0">
+                        <img
+                          src={item.product.image_url || '/placeholder.svg'}
+                          alt={item.product.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-card-foreground text-sm truncate">
                           {item.product.name} {item.quantityType === 'dozen' ? '(Dozen)' : '(Single)'}
                         </p>
                         <div className="flex items-center space-x-2 mt-2">
@@ -274,7 +282,7 @@ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\nDiscount (5%): -₹${disc
                           </Button>
                         </div>
                       </div>
-                      <p className="font-bold text-card-foreground ml-4">₹{(item.product.displayPrice * item.quantity).toFixed(2)}</p>
+                      <p className="font-bold text-card-foreground text-sm">₹{(item.product.displayPrice * item.quantity).toFixed(2)}</p>
                     </div>
                   ))}
                   <div className="mt-6 space-y-3 pt-4 border-t">
