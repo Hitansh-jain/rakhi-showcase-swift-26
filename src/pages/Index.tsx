@@ -113,8 +113,10 @@ const Index = () => {
   const generateWhatsAppURL = () => {
     const cartDetails = cart.map((item, index) => {
       const name = item.quantityType === 'dozen' ? `${item.product.name} (Dozen)` : item.product.name;
+      const imageUrl = item.product.image_url ? item.product.image_url.replace('https://', 'https://\u200B') : '';
+      
       return `${index + 1}. ${name}
-   Qty: ${item.quantity} | ₹${(item.product.displayPrice * item.quantity).toFixed(0)}`;
+   Qty: ${item.quantity} | ₹${(item.product.displayPrice * item.quantity).toFixed(0)}${imageUrl ? `\n   Image: ${imageUrl}` : ''}`;
     }).join('\n\n');
 
     const { subtotal, discount, total } = getTotalPrice();
@@ -349,7 +351,7 @@ Please confirm & share delivery address.
       {cart.length > 0 && (
         <Button
           onClick={() => setShowCart(true)}
-          className="fixed bottom-6 right-6 z-40 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white shadow-2xl rounded-full w-16 h-16 flex items-center justify-center animate-pulse-glow"
+          className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white shadow-2xl rounded-full w-16 h-16 flex items-center justify-center animate-pulse-glow"
         >
           <div className="relative">
             <ShoppingCart className="w-6 h-6" />
