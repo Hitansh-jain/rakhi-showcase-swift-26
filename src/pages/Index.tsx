@@ -111,16 +111,34 @@ const Index = () => {
   };
 
   const generateWhatsAppURL = () => {
-    const cartDetails = cart.map((item) => {
+    const cartDetails = cart.map((item, index) => {
       const name = item.quantityType === 'dozen' ? `${item.product.name} (Dozen)` : item.product.name;
       const imageUrl = item.product.image_url ? item.product.image_url.replace('https://', 'https://\u200B') : '';
 
-      return `→ ${name}\nQuantity: ${item.quantity}\nPrice: ₹${(item.product.displayPrice * item.quantity).toFixed(0)}${imageUrl ? `\nImage Link: ${imageUrl}` : ''}`;
+      return `*${index + 1}.* 🛍️ *${name}*
+   📦 Quantity: ${item.quantity}
+   💰 Price: ₹${(item.product.displayPrice * item.quantity).toFixed(0)}${imageUrl ? `\n   🖼️ Product Image: ${imageUrl}` : ''}`;
     }).join('\n\n');
 
     const { subtotal, discount, total } = getTotalPrice();
 
-    const message = `HRC Rakhi Order Confirmation\n\nItems Ordered:\n${cartDetails}\n\nOrder Summary:\n↪ Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\n↪ Discount: -₹${discount.toFixed(0)}` : ''}\n→ Total Payable: ₹${total.toFixed(0)}\n\nPlease confirm my order. Thank you.\n– Customer via HRC Website`;
+    const message = `🌟 *HRC RAKHI COLLECTION* 🌟
+_Premium Rakhis • Quality Assured_
+
+📋 *ORDER DETAILS*
+${cartDetails}
+
+💳 *BILLING SUMMARY*
+• Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\n• Discount: -₹${discount.toFixed(0)}` : ''}
+• *Total Amount: ₹${total.toFixed(0)}*
+
+🚚 *DELIVERY:* Pan India Available
+⏰ *Processing:* 24-48 Hours
+
+Please confirm this order & share delivery address.
+
+Thank you for choosing HRC! 🙏
+*Harsh Rakhi Center*`;
     
     return `https://wa.me/${CONTACT_PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
   };
@@ -134,6 +152,20 @@ const Index = () => {
     const whatsappURL = generateWhatsAppURL();
     window.open(whatsappURL, '_blank');
   };
+
+  // Disable background scroll when cart is open
+  useEffect(() => {
+    if (showCart) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup function to restore scroll when component unmounts
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showCart]);
 
   if (loading) {
     return (
@@ -229,7 +261,7 @@ const Index = () => {
 
       {/* Cart Popup */}
       {showCart && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" style={{ overflow: 'hidden' }}>
           <div className="bg-card rounded-3xl shadow-2xl max-w-md w-full max-h-[85vh] sm:max-h-[80vh] border animate-scale-in flex flex-col">
             <div className="p-6 border-b bg-muted/30 flex-shrink-0">
               <div className="flex justify-between items-center">
