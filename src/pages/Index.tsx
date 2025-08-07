@@ -113,31 +113,21 @@ const Index = () => {
   const generateWhatsAppURL = () => {
     const cartDetails = cart.map((item, index) => {
       const name = item.quantityType === 'dozen' ? `${item.product.name} (Dozen)` : item.product.name;
-      const imageUrl = item.product.image_url ? item.product.image_url.replace('https://', 'https://\u200B') : '';
-
-      return `*${index + 1}.* 🛍️ *${name}*
-   📦 Quantity: ${item.quantity}
-   💰 Price: ₹${(item.product.displayPrice * item.quantity).toFixed(0)}${imageUrl ? `\n   🖼️ Product Image: ${imageUrl}` : ''}`;
+      return `${index + 1}. ${name}
+   Qty: ${item.quantity} | ₹${(item.product.displayPrice * item.quantity).toFixed(0)}`;
     }).join('\n\n');
 
     const { subtotal, discount, total } = getTotalPrice();
 
-    const message = `🌟 *HRC RAKHI COLLECTION* 🌟
-_Premium Rakhis • Quality Assured_
+    const message = `🛍️ *HRC RAKHI ORDER*
 
-📋 *ORDER DETAILS*
+*ITEMS:*
 ${cartDetails}
 
-💳 *BILLING SUMMARY*
-• Subtotal: ₹${subtotal.toFixed(0)}${discount > 0 ? `\n• Discount: -₹${discount.toFixed(0)}` : ''}
-• *Total Amount: ₹${total.toFixed(0)}*
+*TOTAL: ₹${total.toFixed(0)}*${discount > 0 ? `\n(Discount: ₹${discount.toFixed(0)})` : ''}
 
-🚚 *DELIVERY:* Pan India Available
-⏰ *Processing:* 24-48 Hours
+Please confirm & share delivery address.
 
-Please confirm this order & share delivery address.
-
-Thank you for choosing HRC! 🙏
 *Harsh Rakhi Center*`;
     
     return `https://wa.me/${CONTACT_PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
